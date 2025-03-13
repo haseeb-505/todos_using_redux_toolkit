@@ -5,6 +5,8 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
   plugins: [
         tailwindcss(),
-        react(),
+        react()
       ],
+      base: "/todos_using_redux_toolkit/todos_frontend/",
+
 })
