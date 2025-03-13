@@ -1,6 +1,6 @@
 {
   "name": "todos_frontend",
-  "homepage": "https://haseeb-505.github.io/todos_using_redux_toolkit/todos_frontend",
+  "homepage": "https://haseeb-505.github.io/todos_using_redux_toolkit/todos_frontend/",
   "private": true,
   "version": "0.0.0",
   "type": "module",
