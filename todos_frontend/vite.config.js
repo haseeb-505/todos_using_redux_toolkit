@@ -7,6 +7,6 @@ export default defineConfig({
         tailwindcss(),
         react()
       ],
-      base: "/todos_using_redux_toolkit/todos_frontend/",
+      // base: "/todos_using_redux_toolkit/todos_frontend/",
 
 })

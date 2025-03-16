@@ -1,27 +1,21 @@
-import { useState } from 'react'
-// import { addTodo, removeTodo, updateTodo } from './features/todo/todo.Slice.js'
-import { useSelector, useDispatch } from 'react-redux'
-import './App.css'
-import AddTodo from './components/AddTodo.jsx'
-import Todos from './components/Todos.jsx'
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import Home from './components/Home';
+import Register from './components/Register';
+// import About from './components/About';
+// import Contact from './components/Contact';
+import Login from './components/Login';
+
 function App() {
-
-
   return (
-    <div className="bg-gray-900 min-h-screen flex flex-col items-center p-10">
-        {/* Header */}
-      <div className="text-white text-center p-6 border-4 border-b-blue-400 border-t-green-400 border-r-red-400 border-l-yellow-400 rounded-lg shadow-lg mb-8">
-        <h1 className="text-2xl font-serif font-medium">
-          This todo-app is created using React Redux Toolkit
-        </h1>
-      </div>
-        
-        <AddTodo/>
-        <Todos/>
-
-
-    </div>
-  )
+    <Routes>
+      <Route path="/" element={<Home />} />
+      {/* <Route path="/about" element={<About />} />
+      <Route path="/contact" element={<Contact />} /> */}
+      <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<Register />} />
+    </Routes>
+  );
 }
 
-export default App
+export default App;

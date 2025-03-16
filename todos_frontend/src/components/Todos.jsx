@@ -5,7 +5,7 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import CardActionArea from "@mui/material/CardActionArea";
 import CardActions from "@mui/material/CardActions";
-import { removeTodo } from "../features/todo/todo1.Slice";
+import { removeTodo } from "../features/todo/todo.Slice.js";
 
 function Todos() {
   const todos = useSelector((state) => state.todo.todos);
