@@ -2,35 +2,33 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 
 function Login() {
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-      
-        // Collect form data
-        const userData = {
-          username: e.target.username.value,
-          email: e.target.email.value,
-          fullName: e.target.fullName.value,
-          password: e.target.password.value,
-          confirmPassword: e.target['confirm-password'].value,
-        };
-      
-        try {
-          // Send a POST request to the backend
-          const response = await fetch('http://localhost:8000/api/v1/users/register', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(userData),
-          });
-      
-          // Handle the response
-          const data = await response.json();
-          console.log('Response from backend:', data);
-        } catch (error) {
-          console.error('Error:', error);
-        }
-      };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // collect the login form data
+    const userData = {
+      email: e.target.email.value,
+      username: e.target.username.value,
+      password: e.target.password.value
+    }
+
+    // post the data to backend link
+    try {
+      const response = await fetch('http://localhost:8000/api/v1/users/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userData)
+      });
+
+      // handle the response
+      const data = await response.json();
+      console.log("Response from backend: ", data);
+    } catch (error) {
+      console.log("Error in posting login data to backend: ", error)
+    }
+  };
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <section className="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0">

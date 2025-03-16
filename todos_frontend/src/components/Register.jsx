@@ -1,10 +1,20 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Login from './Login';
 
 function Register() {
   const [avatar, setAvatar] = useState(null);
   const [coverImage, setCoverImage] = useState(null);
+
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: ""
+  });
+
+  const [error, setError] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleAvatarChange = (e) => {
     const file = e.target.files[0];
@@ -23,7 +33,7 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
   
-    // Collect form data
+    // Collect register form data
     const userData = {
       username: e.target.username.value,
       email: e.target.email.value,
@@ -45,7 +55,22 @@ function Register() {
       // Handle the response
       const data = await response.json();
       console.log('Response from backend:', data);
+
+      if (!response.ok) {
+        setTimeout(()=>{
+          navigate("/signup")
+        }, 2000)
+        throw new Error(data.message || "something went wrong")
+      }
+
+      // if response is okay, send the success message
+      setSuccessMessage("User registered successfully!");
+      setTimeout(() => {
+        navigate("/login");
+      }, 4000)
+
     } catch (error) {
+      setError(error.message);
       console.error('Error:', error);
     }
   };
@@ -59,6 +84,10 @@ function Register() {
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
               Create an account
             </h1>
+
+            {error && <p className="text-red-500 text-sm text-center">{error}</p>}
+            {successMessage && <p className="text-green-500 text-sm text-center">{successMessage}</p>}
+
             <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
               {/* Email Input */}
               <div>
