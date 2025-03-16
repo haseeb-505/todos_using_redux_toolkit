@@ -32,7 +32,7 @@ const userSchema = new Schema({
     },
     avatar: {
         type: String,
-        required: true,
+        // required: true,
     },
     coverImage: {
         type: String,
@@ -66,7 +66,7 @@ userSchema.methods.isPasswordSame = async function(password){
     }
 
     // comparison
-    return await bcrypt.compare(this.password, password)
+    return await bcrypt.compare(password, this.password)
 };
 
 // generate access token
@@ -87,7 +87,7 @@ userSchema.methods.generateAccessToken = function(){
 };
 
 // generate refresh token
-userSchema.method.generateRefreshToken = function(){
+userSchema.methods.generateRefreshToken = function(){
     return jwt.sign(
         {
             // payload, for refresh token we just send _id
