@@ -3,6 +3,7 @@ import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { User } from "../models/user.models.js";
 import { uploadaToCloudinary } from "../utils/cloudinary.js";
+import { verifyJWT } from "../middlewares/auth.middleware.js"
 
 
 const generateAccessRefreshToken = async(userId) => {
@@ -172,7 +173,45 @@ const loginUser = asyncHandler(async (req, res) => {
       )
 })
 
+// logout user
+const logoutUser = asyncHandler( async (req, res) => {
+  // since on logout route, we have verifyJWT, 
+  // which checks if the current user the accesstoken
+  // if so, we extract the user and then from its decoded payload,
+  // we get _id of the current user and attach it with req
+  // so we find the user by id here and update the refresh token to undefined so the user can't access its login session again
+  // update the refresh token to undefined so the user can't access its login session again
+  // Model.findByIdAndUpdate(id, update, options, callback);
+  await User.findByIdAndUpdate(
+    req.user._id,
+    {
+      $set: {
+        refreshToken: undefined
+      }
+    },
+    { // send the option with accepting new value
+      new: true,
+    }
+  );
+
+  const options = {
+    httpOnly: true,
+    secure: true,
+  }
+
+// now send the response and remove the access and refresh token cookies
+return res
+        .status(200)
+        .clearCookie("accessToken", options)
+        .clearCookie("refreshToken", options)
+        .json(
+          new ApiResponse(200, null, "user logged out!")
+        )
+
+});
+
 export { 
   registerUser,
   loginUser,
+  logoutUser,
  };

@@ -4,6 +4,11 @@ import jwt from "jsonwebtoken";
 import { ApiError } from "../utils/ApiError.js";
 
 export const verifyJWT = asyncHandler(async (req, res, next) => {
+    // if the user is valid the its cookies shall definitely have the access token,
+    // from that token, after decoding extract the pyaload, access token payload contained everythin except _id
+    // find the user by _id, and then attact it with the req by req.user, 
+    // so on whichever url this midddleare is injected, 
+    // that path will have access this user information
     try {
         const token = req.cookies?.accessToken || req.headers["authorization"]?.replace("Bearer ", "");
         if (!token) {
