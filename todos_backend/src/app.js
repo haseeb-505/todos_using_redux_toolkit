@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import { apiErrorResponse } from "../src/middlewares/apiErrorResponse.middleware.js";
 
 const app = express();
 
@@ -20,6 +21,9 @@ app.use(express.static("public"))
 
 // cookie parser
 app.use(cookieParser())
+
+// error handling middleware for all routes
+app.use(apiErrorResponse)
 
 //routes import 
 import userRouter from "./routes/user.routes.js";
